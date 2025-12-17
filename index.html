@@ -225,12 +225,13 @@
                 </label>
                 <div class="grid grid-cols-3 gap-3">
                     <label class="cursor-pointer radio-card-wrapper transition-all duration-300">
-                        <input type="radio" name="paymentType" value="cash" class="radio-card hidden" checked
+                        <input type="radio" name="paymentType" value="gold" class="radio-card hidden"
                             onchange="calculatePrice()">
                         <div
                             class="border border-gray-100 bg-white/60 rounded-2xl p-4 text-center h-full flex flex-col justify-center items-center transition-all duration-300">
-                            <span class="text-3xl mb-2 filter drop-shadow-sm">💵</span>
-                            <span class="text-sm font-medium text-gray-600">ชำระเอง</span>
+                            <span class="text-3xl mb-2 filter drop-shadow-sm">�</span>
+                            <span class="text-sm font-medium text-gray-600">บัตรทอง</span>
+                            <span class="text-[10px] text-gray-400 mt-1">30 บาท</span>
                         </div>
                     </label>
                     <label class="cursor-pointer radio-card-wrapper transition-all duration-300">
@@ -245,13 +246,12 @@
                         </div>
                     </label>
                     <label class="cursor-pointer radio-card-wrapper transition-all duration-300">
-                        <input type="radio" name="paymentType" value="gold" class="radio-card hidden"
+                        <input type="radio" name="paymentType" value="cash" class="radio-card hidden" checked
                             onchange="calculatePrice()">
                         <div
                             class="border border-gray-100 bg-white/60 rounded-2xl p-4 text-center h-full flex flex-col justify-center items-center transition-all duration-300">
-                            <span class="text-3xl mb-2 filter drop-shadow-sm">💳</span>
-                            <span class="text-sm font-medium text-gray-600">บัตรทอง</span>
-                            <span class="text-[10px] text-gray-400 mt-1">30 บาท</span>
+                            <span class="text-3xl mb-2 filter drop-shadow-sm">�</span>
+                            <span class="text-sm font-medium text-gray-600">ไม่ได้ใช้สิทธิ์</span>
                         </div>
                     </label>
                 </div>
@@ -291,221 +291,261 @@
                 </div>
             </div>
 
-            <!-- Price Summary -->
-            <div class="space-y-3 py-2 animate-slide-up" style="animation-delay: 0.4s;">
-                <div class="flex justify-between text-gray-500 text-sm px-2">
-                    <span>ค่ารักษาเบื้องต้น</span>
-                    <span id="labelBasePrice" class="font-medium">0 ฿</span>
+            <!-- Symptoms Screening -->
+            <div class="animate-slide-up" style="animation-delay: 0.35s;">
+                <label class="block text-gray-800 text-sm font-medium mb-3 pl-1 flex items-center gap-2">
+                    <span class="text-xl">🦷</span>
+                    อาการเบื้องต้น (เลือกได้มากกว่า 1)
+                </label>
+                <div class="grid grid-cols-2 gap-3">
+                    <label
+                        class="flex items-center space-x-3 p-3 bg-white/50 rounded-xl border border-gray-100 cursor-pointer hover:bg-white/80 transition-all">
+                        <input type="checkbox" name="symptom" value="ฟันแตก"
+                            class="rounded text-primary-500 focus:ring-primary-500 border-gray-300">
+                        <span class="text-sm text-gray-700">ฟันแตก</span>
+                    </label>
+                    <label
+                        class="flex items-center space-x-3 p-3 bg-white/50 rounded-xl border border-gray-100 cursor-pointer hover:bg-white/80 transition-all">
+                        <input type="checkbox" name="symptom" value="ฟันเป็นรู/ผุ"
+                            class="rounded text-primary-500 focus:ring-primary-500 border-gray-300">
+                        <span class="text-sm text-gray-700">ฟันเป็นรู/ผุ</span>
+                    </label>
+                    <label
+                        class="flex items-center space-x-3 p-3 bg-white/50 rounded-xl border border-gray-100 cursor-pointer hover:bg-white/80 transition-all">
+                        <input type="checkbox" name="symptom" value="ปวดฟัน"
+                            class="rounded text-primary-500 focus:ring-primary-500 border-gray-300">
+                        <span class="text-sm text-gray-700">ปวดฟัน</span>
+                    </label>
+                    <label
+                        class="flex items-center space-x-3 p-3 bg-white/50 rounded-xl border border-gray-100 cursor-pointer hover:bg-white/80 transition-all">
+                        <input type="checkbox" name="symptom" value="เหงือกบวม"
+                            class="rounded text-primary-500 focus:ring-primary-500 border-gray-300">
+                        <span class="text-sm text-gray-700">เหงือกบวม</span>
+                    </label>
                 </div>
-                <!-- Dynamic Discount Row -->
-                <div class="flex justify-between text-teal-600 text-sm font-medium px-2 rounded-lg bg-teal-50 p-2"
-                    id="rowDiscount" style="display:none;">
-                    <div class="flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span id="labelRightName">หักสิทธิ</span>
-                    </div>
-                    <span id="labelDiscount">-0 ฿</span>
-                </div>
-
-                <div class="flex justify-between items-end border-t border-dashed border-gray-200 pt-4 mt-2 px-2">
-                    <span class="text-gray-800 font-semibold mb-1">ยอดชำระสุทธิ</span>
-                    <span
-                        class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-teal-600"
-                        id="priceDisplay">0 ฿</span>
-                </div>
-            </div>
-
-            <!-- Customer Form -->
-            <div class="space-y-4 pt-4 animate-slide-up" style="animation-delay: 0.5s;">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="relative">
-                        <input type="text" id="customerName"
-                            class="block w-full px-4 py-3 text-sm text-gray-900 bg-white rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer placeholder-transparent"
-                            placeholder="ชื่อ-นามสกุล" />
-                        <label for="customerName"
-                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">ชื่อ-นามสกุล</label>
-                    </div>
-                    <div class="relative">
-                        <input type="tel" id="customerPhone"
-                            class="block w-full px-4 py-3 text-sm text-gray-900 bg-white rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer placeholder-transparent"
-                            placeholder="เบอร์โทรศัพท์" />
-                        <label for="customerPhone"
-                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">เบอร์โทรศัพท์</label>
-                    </div>
+                <div class="mt-3">
+                    <input type="text" id="symptomOther" placeholder="อื่นๆ (โปรดระบุ)"
+                        class="w-full px-4 py-2 text-sm bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:border-primary-400 focus:bg-white transition-all">
                 </div>
 
-                <button onclick="submitData()" id="btnSubmit"
-                    class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-4 rounded-xl shadow-lg shadow-primary-200 transition-all duration-300 transform hover:-translate-y-0.5 relative overflow-hidden group">
-                    <span class="relative z-10 flex items-center justify-center gap-2">
-                        ยืนยันการจองคิว
-                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </span>
+                <!-- Price Summary -->
+                <div class="space-y-3 py-2 animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="flex justify-between text-gray-500 text-sm px-2">
+                        <span>ค่ารักษาเบื้องต้น</span>
+                        <span id="labelBasePrice" class="font-medium">0 ฿</span>
+                    </div>
+                    <!-- Dynamic Discount Row -->
+                    <div class="flex justify-between text-teal-600 text-sm font-medium px-2 rounded-lg bg-teal-50 p-2"
+                        id="rowDiscount" style="display:none;">
+                        <div class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span id="labelRightName">หักสิทธิ</span>
+                        </div>
+                        <span id="labelDiscount">-0 ฿</span>
+                    </div>
+
                     <div
-                        class="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-700 ease-in-out -skew-x-12 -translate-x-full">
+                        class="flex justify-between items-center border-t border-dashed border-gray-200 pt-4 mt-2 px-2">
+                        <span class="text-gray-600 text-sm">ยอดประเมินสุทธิ</span>
+                        <span class="text-xl font-semibold text-gray-800" id="priceDisplay">0 ฿</span>
                     </div>
-                </button>
+                </div>
+
+                <!-- Customer Form -->
+                <div class="space-y-4 pt-4 animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="relative">
+                            <input type="text" id="customerName"
+                                class="block w-full px-4 py-3 text-sm text-gray-900 bg-white rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer placeholder-transparent"
+                                placeholder="กรุณาระบุชื่อผู้ต้องการทำนัดหมาย" />
+                            <label for="customerName"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">กรุณาระบุชื่อผู้ต้องการทำนัดหมาย</label>
+                        </div>
+                        <div class="relative">
+                            <input type="tel" id="customerPhone"
+                                class="block w-full px-4 py-3 text-sm text-gray-900 bg-white rounded-xl border border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-primary-500 peer placeholder-transparent"
+                                placeholder="เบอร์โทรศัพท์" />
+                            <label for="customerPhone"
+                                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-primary-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-3">เบอร์โทรศัพท์</label>
+                        </div>
+                    </div>
+
+                    <button onclick="submitData()" id="btnSubmit"
+                        class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-4 rounded-xl shadow-lg shadow-primary-200 transition-all duration-300 transform hover:-translate-y-0.5 relative overflow-hidden group">
+                        <span class="relative z-10 flex items-center justify-center gap-2">
+                            ยืนยันการจองคิว
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </span>
+                        <div
+                            class="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-700 ease-in-out -skew-x-12 -translate-x-full">
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Logic Script (Preserved intact) -->
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyrTyj6EWJaMVPqBhFC-yNKTyP8uEr6tiITjxkwie7Vi_w9NXoH_QKjQcsbYtgYdIVuWQ/exec";
+        <!-- Logic Script (Preserved intact) -->
+        <script>
+            const API_URL = "https://script.google.com/macros/s/AKfycbyrTyj6EWJaMVPqBhFC-yNKTyP8uEr6tiITjxkwie7Vi_w9NXoH_QKjQcsbYtgYdIVuWQ/exec";
 
-        window.onload = async function () {
-            try {
-                if (API_URL.includes("วาง_URL")) {
-                    alert("อย่าลืมใส่ URL Google Apps Script นะครับ!");
+            window.onload = async function () {
+                try {
+                    if (API_URL.includes("วาง_URL")) {
+                        alert("อย่าลืมใส่ URL Google Apps Script นะครับ!");
+                        return;
+                    }
+
+                    // สั่งดึงข้อมูลจาก GAS
+                    const response = await fetch(API_URL);
+                    const result = await response.json();
+
+                    if (result.status !== "success") throw new Error("API Error");
+
+                    const select = document.getElementById('serviceSelect');
+                    select.innerHTML = '<option value="0" data-price="0" data-type="none">-- เลือกรายการรักษา --</option>';
+
+                    result.data.forEach(service => {
+                        let option = document.createElement('option');
+                        option.text = `${service.name} (เริ่มต้น ${parseInt(service.price).toLocaleString()}.-)`;
+                        option.value = service.name;
+                        option.dataset.price = service.price;
+                        option.dataset.type = service.category ? service.category.toLowerCase() : "basic";
+                        select.add(option);
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                    document.getElementById('serviceSelect').innerHTML = '<option>❌ โหลดข้อมูลไม่สำเร็จ</option>';
+                }
+            };
+
+            function calculatePrice() {
+                const select = document.getElementById('serviceSelect');
+                const selectedOption = select.options[select.selectedIndex];
+
+                if (!selectedOption) return { netPrice: 0, paymentTypeText: "ยังไม่เลือก", totalGross: 0, discountAmt: 0 };
+
+                const baseTreatmentPrice = parseInt(selectedOption.dataset.price || 0);
+                const type = selectedOption.dataset.type || "basic";
+
+                let addOnPrice = 0;
+                if (document.getElementById('checkXray').checked) addOnPrice += 500;
+                if (document.getElementById('checkRetainer').checked) addOnPrice += 3000;
+
+                const totalGross = baseTreatmentPrice + addOnPrice;
+
+                const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+                let discount = 0;
+                let discountLabel = "";
+                let warningMsg = "";
+
+                if (paymentType === 'sso') {
+                    if (type === 'cosmetic') {
+                        warningMsg = "ประกันสังคมไม่ครอบคลุมรายการเพื่อความงาม";
+                        discount = 0;
+                    } else {
+                        discount = Math.min(baseTreatmentPrice, 900);
+                        discountLabel = "สิทธิประกันสังคม (สูงสุด 900.-)";
+                    }
+                } else if (paymentType === 'gold') {
+                    if (type === 'cosmetic') {
+                        warningMsg = "สิทธิบัตรทองไม่ครอบคลุมรายการเพื่อความงาม";
+                        discount = 0;
+                    } else {
+                        discount = baseTreatmentPrice;
+                        discountLabel = "สิทธิบัตรทอง/30บาท";
+                    }
+                }
+
+                if (warningMsg) {
+                    Swal.fire({
+                        toast: true, position: 'top', icon: 'info',
+                        title: warningMsg, showConfirmButton: false, timer: 3000
+                    });
+                    document.querySelector('input[value="cash"]').checked = true;
+                    return calculatePrice();
+                }
+
+                document.getElementById('labelBasePrice').innerText = totalGross.toLocaleString() + " ฿";
+
+                const rowDiscount = document.getElementById('rowDiscount');
+                if (discount > 0) {
+                    rowDiscount.style.display = 'flex';
+                    document.getElementById('labelRightName').innerText = discountLabel;
+                    document.getElementById('labelDiscount').innerText = "-" + discount.toLocaleString() + " ฿";
+                } else {
+                    rowDiscount.style.display = 'none';
+                }
+
+                const netPrice = totalGross - discount;
+                document.getElementById('priceDisplay').innerText = netPrice.toLocaleString() + " ฿";
+
+                return {
+                    netPrice: netPrice,
+                    paymentTypeText: discountLabel || "ไม่ได้ใช้สิทธิ์",
+                    totalGross: totalGross,
+                    discountAmt: discount
+                };
+            }
+
+            function submitData() {
+                const name = document.getElementById('customerName').value;
+                const phone = document.getElementById('customerPhone').value;
+                const select = document.getElementById('serviceSelect');
+
+                if (select.value == "0" || !name || !phone) {
+                    Swal.fire({ title: 'ข้อมูลไม่ครบ', text: 'กรุณาเลือกรายการและกรอกข้อมูลติดต่อ', icon: 'warning', confirmButtonColor: '#0ea5e9' });
                     return;
                 }
 
-                // สั่งดึงข้อมูลจาก GAS
-                const response = await fetch(API_URL);
-                const result = await response.json();
+                const calcResult = calculatePrice();
+                const btn = document.getElementById('btnSubmit');
+                const originalText = btn.innerHTML;
 
-                if (result.status !== "success") throw new Error("API Error");
+                btn.innerHTML = '<span class="flex items-center gap-2"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> กำลังบันทึก...</span>';
+                btn.disabled = true;
 
-                const select = document.getElementById('serviceSelect');
-                select.innerHTML = '<option value="0" data-price="0" data-type="none">-- เลือกรายการรักษา --</option>';
+                const symptoms = Array.from(document.querySelectorAll('input[name="symptom"]:checked')).map(cb => cb.value);
+                const otherSymptom = document.getElementById('symptomOther').value.trim();
+                if (otherSymptom) symptoms.push(otherSymptom);
 
-                result.data.forEach(service => {
-                    let option = document.createElement('option');
-                    option.text = service.name;
-                    option.value = service.name;
-                    option.dataset.price = service.price;
-                    option.dataset.type = service.category ? service.category.toLowerCase() : "basic";
-                    select.add(option);
+                const payload = {
+                    name: name,
+                    phone: phone,
+                    symptoms: symptoms.join(", "),
+                    service: select.value,
+                    paymentType: calcResult.paymentTypeText,
+                    priceFull: calcResult.totalGross,
+                    discount: calcResult.discountAmt,
+                    priceNet: calcResult.netPrice
+                };
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    Swal.fire({ title: 'บันทึกสำเร็จ', text: 'เจ้าหน้าที่จะติดต่อกลับเพื่อยืนยันสิทธิ', icon: 'success', confirmButtonColor: '#0ea5e9' });
+                    document.getElementById('customerName').value = '';
+                    document.getElementById('customerPhone').value = '';
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    console.error(err);
+                    Swal.fire({ title: 'Error', text: 'เกิดข้อผิดพลาดในการเชื่อมต่อ', icon: 'error', confirmButtonColor: '#ef4444' });
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
                 });
-
-            } catch (error) {
-                console.error(error);
-                document.getElementById('serviceSelect').innerHTML = '<option>❌ โหลดข้อมูลไม่สำเร็จ</option>';
             }
-        };
-
-        function calculatePrice() {
-            const select = document.getElementById('serviceSelect');
-            const selectedOption = select.options[select.selectedIndex];
-
-            if (!selectedOption) return { netPrice: 0, paymentTypeText: "ยังไม่เลือก", totalGross: 0, discountAmt: 0 };
-
-            const baseTreatmentPrice = parseInt(selectedOption.dataset.price || 0);
-            const type = selectedOption.dataset.type || "basic";
-
-            let addOnPrice = 0;
-            if (document.getElementById('checkXray').checked) addOnPrice += 500;
-            if (document.getElementById('checkRetainer').checked) addOnPrice += 3000;
-
-            const totalGross = baseTreatmentPrice + addOnPrice;
-
-            const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
-            let discount = 0;
-            let discountLabel = "";
-            let warningMsg = "";
-
-            if (paymentType === 'sso') {
-                if (type === 'cosmetic') {
-                    warningMsg = "ประกันสังคมไม่ครอบคลุมรายการเพื่อความงาม";
-                    discount = 0;
-                } else {
-                    discount = Math.min(baseTreatmentPrice, 900);
-                    discountLabel = "สิทธิประกันสังคม (สูงสุด 900.-)";
-                }
-            } else if (paymentType === 'gold') {
-                if (type === 'cosmetic') {
-                    warningMsg = "สิทธิบัตรทองไม่ครอบคลุมรายการเพื่อความงาม";
-                    discount = 0;
-                } else {
-                    discount = baseTreatmentPrice;
-                    discountLabel = "สิทธิบัตรทอง/30บาท";
-                }
-            }
-
-            if (warningMsg) {
-                Swal.fire({
-                    toast: true, position: 'top', icon: 'info',
-                    title: warningMsg, showConfirmButton: false, timer: 3000
-                });
-                document.querySelector('input[value="cash"]').checked = true;
-                return calculatePrice();
-            }
-
-            document.getElementById('labelBasePrice').innerText = totalGross.toLocaleString() + " ฿";
-
-            const rowDiscount = document.getElementById('rowDiscount');
-            if (discount > 0) {
-                rowDiscount.style.display = 'flex';
-                document.getElementById('labelRightName').innerText = discountLabel;
-                document.getElementById('labelDiscount').innerText = "-" + discount.toLocaleString() + " ฿";
-            } else {
-                rowDiscount.style.display = 'none';
-            }
-
-            const netPrice = totalGross - discount;
-            document.getElementById('priceDisplay').innerText = netPrice.toLocaleString() + " ฿";
-
-            return {
-                netPrice: netPrice,
-                paymentTypeText: discountLabel || "ชำระเงินสด",
-                totalGross: totalGross,
-                discountAmt: discount
-            };
-        }
-
-        function submitData() {
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const select = document.getElementById('serviceSelect');
-
-            if (select.value == "0" || !name || !phone) {
-                Swal.fire({ title: 'ข้อมูลไม่ครบ', text: 'กรุณาเลือกรายการและกรอกข้อมูลติดต่อ', icon: 'warning', confirmButtonColor: '#0ea5e9' });
-                return;
-            }
-
-            const calcResult = calculatePrice();
-            const btn = document.getElementById('btnSubmit');
-            const originalText = btn.innerHTML;
-
-            btn.innerHTML = '<span class="flex items-center gap-2"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> กำลังบันทึก...</span>';
-            btn.disabled = true;
-
-            const payload = {
-                name: name,
-                phone: phone,
-                service: select.value,
-                paymentType: calcResult.paymentTypeText,
-                priceFull: calcResult.totalGross,
-                discount: calcResult.discountAmt,
-                priceNet: calcResult.netPrice
-            };
-
-            fetch(API_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                Swal.fire({ title: 'บันทึกสำเร็จ', text: 'เจ้าหน้าที่จะติดต่อกลับเพื่อยืนยันสิทธิ', icon: 'success', confirmButtonColor: '#0ea5e9' });
-                document.getElementById('customerName').value = '';
-                document.getElementById('customerPhone').value = '';
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error(err);
-                Swal.fire({ title: 'Error', text: 'เกิดข้อผิดพลาดในการเชื่อมต่อ', icon: 'error', confirmButtonColor: '#ef4444' });
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            });
-        }
-    </script>
+        </script>
 </body>
-
 
 </html>
